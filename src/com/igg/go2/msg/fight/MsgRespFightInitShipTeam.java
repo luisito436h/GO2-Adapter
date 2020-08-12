@@ -35,8 +35,12 @@ public class MsgRespFightInitShipTeam extends MsgHead {
     this.galaxyMapId = b.readInt();
     this.galaxyId = b.readInt();
     this.dataLen = b.readInt();
-    this.data[0].readBuf(b);
-    this.data[1].readBuf(b);
+    if(b.sizeRemaining() > FightShipTeam.LENGTH) {
+      this.data[0].readBuf(b);
+    }
+    if(b.sizeRemaining() > FightShipTeam.LENGTH) {
+      this.data[1].readBuf(b);
+    }
   }
   public void writeBuf(ByteArray b) {
     b.setPosition(0);
