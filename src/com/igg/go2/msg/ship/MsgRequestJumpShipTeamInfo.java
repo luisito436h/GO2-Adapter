@@ -1,4 +1,4 @@
-package com.igg.go2.msg.com.igg.go2.msg.ship;
+package com.igg.go2.msg.ship;
 
 import com.igg.go2.common.MsgHead;
 import com.igg.go2.common.MsgTypes;

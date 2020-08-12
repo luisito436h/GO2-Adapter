@@ -1,4 +1,4 @@
-package com.igg.go2.msg.com.igg.go2.msg.minimap;
+package com.igg.go2.msg.minimap;
 
 import com.igg.go2.common.MsgHead;
 import com.igg.go2.common.MsgTypes;
