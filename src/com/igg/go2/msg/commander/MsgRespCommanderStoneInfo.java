@@ -70,7 +70,6 @@ public class MsgRespCommanderStoneInfo extends MsgHead {
     this.sBlast = b.readInt();
     this.sDoubleHit = b.readInt();
     this.sRepairShield = b.readInt();
-    this.sRepairShield = b.readInt();
     this.sExp = b.readInt();
     this.aimPer = b.readByte();
     this.blenchPer = b.readByte();
