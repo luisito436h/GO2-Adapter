@@ -244,7 +244,9 @@ public class ByteArray {
       String ret = new String(buffer, position, len, cs);
       
       int end = ret.indexOf(0);
-      ret = ret.substring(0, end);
+      if(end != -1) {
+        ret = ret.substring(0, end);
+      }
       
       position += len;
       return ret;
