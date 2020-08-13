@@ -341,6 +341,7 @@ public class Connection {
     } catch(IOException ex) {
       //Do nothing
     }
+    System.out.println("[" + debugName + ":connection] Disconnected");
   }
   
   public String debugName() {
