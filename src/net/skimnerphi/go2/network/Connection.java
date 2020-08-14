@@ -14,13 +14,17 @@ import java.net.Socket;
  */
 public class Connection {
   /**
-   * IP for connecting to the US login servers
-   */
-  public static final String IP_US = "192.243.40.22";
-  /**
    * IP for connecting to the EU login servers
    */
   public static final String IP_EU = "52.28.78.171";
+  /**
+   * IP for connecting to the PH login servers
+   */
+  public static final String IP_PH = "192.243.40.21";
+  /**
+   * IP for connecting to the US login servers
+   */
+  public static final String IP_US = "192.243.40.22";
   /**
    * Default port for connecting to login servers.
    */
