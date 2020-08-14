@@ -55,6 +55,9 @@ public class MsgRequestJumpShipTeam extends MsgHead {
     b.writeShort(this.dataLen);
     b.writeByte(this.jumpType);
     b.writeByte(this.type);
+    for(int idx = 0; idx < 100; idx++) {
+      b.writeInt(this.shipTeamId[idx]);
+    }
     
     b.padSize(super.usSize);
   }
