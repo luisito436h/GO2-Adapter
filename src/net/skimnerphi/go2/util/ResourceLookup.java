@@ -78,6 +78,7 @@ public class ResourceLookup {
       return namesCommander.get(id);
     }
     return "Unknown commander #" + id;
+<<<<<<< HEAD
   }
   
   /**
@@ -90,6 +91,8 @@ public class ResourceLookup {
       return namesHulls.get(id);
     }
     return "Unknown hull #" + id;
+=======
+>>>>>>> origin/master
   }
   
   /**
