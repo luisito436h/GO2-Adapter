@@ -1,29 +1,36 @@
 package net.skimnerphi.go2.network;
 
-import com.igg.go2.msg.MsgRequestDeleteServer;
-import com.igg.go2.msg.chat.MsgChatMessage;
-import com.igg.go2.msg.chiplottery.MsgRequestCmosLotteryInfo;
-import com.igg.go2.msg.chiplottery.MsgRequestGainCmosLottery;
-import com.igg.go2.msg.chiplottery.MsgRequestSellProps;
-import com.igg.go2.msg.compose.MsgRequestCommanderUnionStone;
-import com.igg.go2.msg.compose.MsgRequestUnionCommanderCard;
-import com.igg.go2.msg.construction.MsgRequestCreateBuild;
-import com.igg.go2.msg.construction.MsgRequestGetStorageResource;
-import com.igg.go2.msg.construction.MsgRequestSpeedBuilding;
-import com.igg.go2.msg.corps.MsgRequestInsertFlagConsortiaMember;
-import com.igg.go2.msg.corps.MsgRequestJoinConsortia;
-import com.igg.go2.msg.mail.MsgRequestDeleteEmail;
-import com.igg.go2.msg.mail.MsgRequestEmailGoods;
-import com.igg.go2.msg.mail.MsgRequestEmailInfo;
-import com.igg.go2.msg.mail.MsgRequestReadEmail;
-import com.igg.go2.msg.mail.MsgRequestSendEmail;
-import com.igg.go2.msg.mall.MsgRequestBuyTradeGoods;
-import com.igg.go2.msg.mall.MsgRequestMyTradeInfo;
-import com.igg.go2.msg.mall.MsgRequestTradeGoods;
-import com.igg.go2.msg.mall.MsgRequestTradeInfo;
-import com.igg.go2.msg.sciencesystem.MsgRequestAddPack;
-import com.igg.go2.msg.sciencesystem.MsgRequestGainLottery;
-import com.igg.go2.msg.sciencesystem.MsgRequestUseProps;
+import com.igg.go2.msg.*;
+import com.igg.go2.msg.chat.*;
+import com.igg.go2.msg.chiplottery.*;
+import com.igg.go2.msg.commander.*;
+import com.igg.go2.msg.compose.*;
+import com.igg.go2.msg.construction.*;
+import com.igg.go2.msg.corps.*;
+import com.igg.go2.msg.destructionship.*;
+import com.igg.go2.msg.facebook.*;
+import com.igg.go2.msg.field.*;
+import com.igg.go2.msg.fight.*;
+import com.igg.go2.msg.flagship.*;
+import com.igg.go2.msg.fleet.*;
+import com.igg.go2.msg.friend.*;
+import com.igg.go2.msg.galaxymap.*;
+import com.igg.go2.msg.gymkhana.*;
+import com.igg.go2.msg.instance.*;
+import com.igg.go2.msg.loadhe3.*;
+import com.igg.go2.msg.mail.*;
+import com.igg.go2.msg.mall.*;
+import com.igg.go2.msg.match.*;
+import com.igg.go2.msg.minimap.*;
+import com.igg.go2.msg.radar.*;
+import com.igg.go2.msg.raidprops.*;
+import com.igg.go2.msg.rank.*;
+import com.igg.go2.msg.reward.*;
+import com.igg.go2.msg.sciencesystem.*;
+import com.igg.go2.msg.ship.*;
+import com.igg.go2.msg.shipmodel.*;
+import com.igg.go2.msg.task.*;
+import com.igg.go2.msg.upgrade.*;
 import java.io.IOException;
 
 public class Request {
@@ -264,6 +271,55 @@ public class Request {
     req.objGuid = dmUserId;
     req.specialType = (short)linkType;
     req.propsId = linkId;
+    inst.sendMsg(req);
+  }
+  
+  public static final byte TARGETRANGE_MIN = 0;
+  public static final byte TARGETRANGE_MAX = 1;
+  
+  public static final byte TARGET_CLOSEST = 0;
+  public static final byte TARGET_DEFBLDGS = 1;
+  public static final byte TARGET_MAXATK = 2;
+  public static final byte TARGET_MINATK = 3;
+  public static final byte TARGET_MAXDUR = 4;
+  public static final byte TARGET_MINDUR = 5;
+  public static final byte TARGET_COMMANDER = 6;
+  
+  public void createFleet(String name, int[] shipIds, int[] stackSizes, int commanderId, byte targetType, byte targetRange) throws IOException {
+    MsgRequestCreateShipTeam req = new MsgRequestCreateShipTeam();
+    req.guid = inst.guid();
+    req.teamName = name;
+    req.commanderId = commanderId;
+    req.target = targetType;
+    req.targetRange = targetRange;
+    
+    for(int idx = 0; idx < MsgTypes.MAX_SHIPTEAMBODY; idx++) {
+      req.teamBody[idx].shipModelId = shipIds[idx];
+      req.teamBody[idx].num = shipIds[idx];
+    }
+    
+    inst.sendMsg(req);
+  }
+  
+  public static final byte JUMP_DEFEND = 0;
+  public static final byte JUMP_ATTACK = 1;
+  
+  public void sendFleets(int destX, int destY, byte jumpType, boolean sync, int... fleetIds) throws IOException {
+    sendFleets(destX * 420 + destY, jumpType, sync, fleetIds);
+  }
+  public void sendFleets(int destGalaxyId, byte jumpType, boolean sync, int... fleetIds) throws IOException {
+    MsgRequestJumpShipTeam req = new MsgRequestJumpShipTeam();
+    req.guid = inst.guid();
+    req.toGalaxyMapId = 0;
+    req.toGalaxyId = destGalaxyId;
+    req.dataLen = fleetIds.length;
+    req.jumpType = jumpType;
+    req.type = (sync) ? 1 : 0;
+    
+    for(int idx = 0; idx < fleetIds.length; idx++) {
+      req.shipTeamId[idx] = fleetIds[idx];
+    }
+    
     inst.sendMsg(req);
   }
 }
