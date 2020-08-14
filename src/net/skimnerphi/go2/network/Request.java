@@ -1,5 +1,6 @@
 package net.skimnerphi.go2.network;
 
+import com.igg.go2.common.MsgTypes;
 import com.igg.go2.msg.*;
 import com.igg.go2.msg.chat.*;
 import com.igg.go2.msg.chiplottery.*;
@@ -291,7 +292,7 @@ public class Request {
     req.teamName = name;
     req.commanderId = commanderId;
     req.target = targetType;
-    req.targetRange = targetRange;
+    req.targetInterval = targetRange;
     
     for(int idx = 0; idx < MsgTypes.MAX_SHIPTEAMBODY; idx++) {
       req.teamBody[idx].shipModelId = shipIds[idx];
@@ -312,14 +313,40 @@ public class Request {
     req.guid = inst.guid();
     req.toGalaxyMapId = 0;
     req.toGalaxyId = destGalaxyId;
-    req.dataLen = fleetIds.length;
+    req.dataLen = (short)fleetIds.length;
     req.jumpType = jumpType;
-    req.type = (sync) ? 1 : 0;
+    req.type = (sync) ? (byte)1 : (byte)0;
     
     for(int idx = 0; idx < fleetIds.length; idx++) {
       req.shipTeamId[idx] = fleetIds[idx];
     }
     
+    inst.sendMsg(req);
+  }
+  
+  public void getPlayerInfo(int guid) throws IOException {
+    MsgRequestFriendInfo req = new MsgRequestFriendInfo();
+    req.guid = inst.guid();
+    req.objGuid = guid;
+    req.objUserId = -1;
+    inst.sendMsg(req);
+  }
+  public void getPlayerInfo(long fbid) throws IOException {
+    MsgRequestFriendInfo req = new MsgRequestFriendInfo();
+    req.guid = inst.guid();
+    req.objGuid = -1;
+    req.objUserId = fbid;
+    inst.sendMsg(req);
+  }
+  
+  public void enterPlanet(int x, int y) throws IOException {
+    enterPlanet(x * 420 + y);
+  }
+  public void enterPlanet(int galaxyId) throws IOException {
+    MsgRequestGalaxy req = new MsgRequestGalaxy();
+    req.guid = inst.guid();
+    req.galaxyMapId = 0;
+    req.galaxyId = galaxyId;
     inst.sendMsg(req);
   }
 }
