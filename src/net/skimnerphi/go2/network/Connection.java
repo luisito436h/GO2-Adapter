@@ -79,6 +79,9 @@ public class Connection {
     this.debugName = debugName;
     this.facebookId = fbId;
     this.loginKey = key;
+    
+    this.resp = new Response(this);
+    this.req = new Request(this);
   }
   /**
    * Create a new Connection.
@@ -89,6 +92,9 @@ public class Connection {
     this.debugName = Long.toString(fbId, 16);
     this.facebookId = fbId;
     this.loginKey = key;
+    
+    this.resp = new Response(this);
+    this.req = new Request(this);
   }
   /**
    * Create a new keyless Connection. Connections initialized without a session key can only connect to the EU servers using the hacked port.
@@ -99,6 +105,9 @@ public class Connection {
     this.debugName = debugName;
     this.facebookId = fbId;
     this.loginKey = generateFalseToken();
+    
+    this.resp = new Response(this);
+    this.req = new Request(this);
   }
   /**
    * Create a new keyless Connection. Connections initialized without a session key can only connect to the EU servers using the hacked port.
@@ -108,6 +117,9 @@ public class Connection {
     this.debugName = Long.toString(fbId, 16);
     this.facebookId = fbId;
     this.loginKey = generateFalseToken();
+    
+    this.resp = new Response(this);
+    this.req = new Request(this);
   }
   
   private String generateFalseToken() {
@@ -252,10 +264,7 @@ public class Connection {
     req_playerInfo.hdFlag = resp_gameServerLogin.hdFlag;
     sendMsg(req_playerInfo);
     
-    this.resp = new Response(this);
     this.resp.start();
-    
-    this.req = new Request(this);
   }
   
   /**
