@@ -22,6 +22,8 @@ public class ResourceLookup {
   private static HashMap<Integer, String> namesPropCommander;
   //commander names (as in command center)
   private static HashMap<Integer, String> namesCommander;
+  //ship hull names
+  private static HashMap<Integer, String> namesHulls;
   //debug names for network messages
   private static HashMap<Integer, String> namesMsgtype;
   
@@ -30,6 +32,7 @@ public class ResourceLookup {
     namesPropCommander = readStringLookupFile("propscommander.txt");
     namesCommander = readStringLookupFile("commander.txt");
     namesMsgtype = readStringLookupFile("msgtypes.txt");
+    namesHulls = readStringLookupFile("hull.txt");
   }
   
   private static HashMap<Integer, String> readStringLookupFile(String filename) {
@@ -74,7 +77,19 @@ public class ResourceLookup {
     if(namesCommander.containsKey(id)) {
       return namesCommander.get(id);
     }
-    return "Unknown commander #";
+    return "Unknown commander #" + id;
+  }
+  
+  /**
+   * Lookup the name for a ship hull
+   * @param id Ship body ID
+   * @return Name of the hull, or a generic description if not found.
+   */
+  public static String getHullName(int id) {
+    if(namesHulls.containsKey(id)) {
+      return namesHulls.get(id);
+    }
+    return "Unknown hull #" + id;
   }
   
   /**
@@ -86,7 +101,7 @@ public class ResourceLookup {
     if(namesMsgtype.containsKey(id)) {
       return namesMsgtype.get(id);
     }
-    return "Unknown message type #";
+    return "Unknown message type #" + id;
   }
   
   /**
