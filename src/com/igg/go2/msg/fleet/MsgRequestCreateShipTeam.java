@@ -2,6 +2,7 @@ package com.igg.go2.msg.fleet;
 
 import com.igg.go2.common.MsgHead;
 import com.igg.go2.common.MsgTypes;
+import com.igg.go2.msg.ShipTeamNum;
 import net.skimnerphi.go2.util.ByteArray;
 
 /**
@@ -11,7 +12,7 @@ import net.skimnerphi.go2.util.ByteArray;
 public class MsgRequestCreateShipTeam extends MsgHead {
   public int guid;
   public String teamName;
-  public ShipTeamBody[] teamBody;
+  public ShipTeamNum[] teamBody;
   public int commanderId;
   public byte target;
   public byte targetInterval;
@@ -19,9 +20,9 @@ public class MsgRequestCreateShipTeam extends MsgHead {
   public MsgRequestCreateShipTeam() {
     super();
     
-    this.teamBody = new ShipTeamBody[MsgTypes.MAX_SHIPTEAMBODY];
+    this.teamBody = new ShipTeamNum[MsgTypes.MAX_SHIPTEAMBODY];
     for(int idx = 0; idx < MsgTypes.MAX_SHIPTEAMBODY; idx++) {
-      this.teamBody[idx] = new ShipTeamBody();
+      this.teamBody[idx] = new ShipTeamNum();
     }
     
     super.usSize = this.getLength();
@@ -53,7 +54,7 @@ public class MsgRequestCreateShipTeam extends MsgHead {
     return getLength((short)0);
   }
   public short getLength(short param1) {
-    return 18 + MsgTypes.MAX_NAME + MsgTypes.MAX_SHIPTEAMBODY * ShipTeamBody.LENGTH;
+    return 18 + MsgTypes.MAX_NAME + MsgTypes.MAX_SHIPTEAMBODY * ShipTeamNum.LENGTH;
   }
   
   public void release() {
