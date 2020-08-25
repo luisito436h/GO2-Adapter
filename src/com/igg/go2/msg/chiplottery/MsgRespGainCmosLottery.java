@@ -14,7 +14,7 @@ public class MsgRespGainCmosLottery extends MsgHead {
   public int propsId;
   public int type;
   public int credit;
-  public int lotteryPhase;
+  public byte lotteryPhase;
   public byte broFlag;
   public String name;
   
@@ -32,7 +32,7 @@ public class MsgRespGainCmosLottery extends MsgHead {
     this.propsId = b.readInt();
     this.type = b.readInt();
     this.credit = b.readInt();
-    this.lotteryPhase = b.readInt();
+    this.lotteryPhase = b.readByte();
     this.broFlag = b.readByte();
     this.name = b.readString(MsgTypes.MAX_NAME, ByteArray.CHARSET_UTF8);
   }
