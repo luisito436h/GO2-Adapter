@@ -80,7 +80,6 @@ public class Connection {
     this.facebookId = fbId;
     this.loginKey = key;
     
-    this.resp = new Response(this);
     this.req = new Request(this);
   }
   /**
@@ -93,7 +92,6 @@ public class Connection {
     this.facebookId = fbId;
     this.loginKey = key;
     
-    this.resp = new Response(this);
     this.req = new Request(this);
   }
   /**
@@ -106,7 +104,6 @@ public class Connection {
     this.facebookId = fbId;
     this.loginKey = generateFalseToken();
     
-    this.resp = new Response(this);
     this.req = new Request(this);
   }
   /**
@@ -118,7 +115,6 @@ public class Connection {
     this.facebookId = fbId;
     this.loginKey = generateFalseToken();
     
-    this.resp = new Response(this);
     this.req = new Request(this);
   }
   
@@ -215,6 +211,8 @@ public class Connection {
           break;
       }
     }
+    
+    this.resp = new Response(this);
   }
   
   /**
@@ -230,6 +228,8 @@ public class Connection {
    * @throws IOException 
    */
   public void connect() throws IOException {
+    this.seqId = 0;
+    
     if(this.authInfo == null) {
       throw new IOException("Not authenticated");
     }
@@ -355,6 +355,21 @@ public class Connection {
       //Do nothing
     }
     System.out.println("[" + debugName + ":connection] Disconnected");
+  }
+  
+  public boolean isConnected() {
+    return !this.serverSocket.isClosed();
+  }
+  
+  /**
+   * Sleeps the current thread for the specified time <i>or</i> if the connection is lost
+   */
+  public void wait(int millis) {
+    long until = System.currentTimeMillis() + millis;
+
+    while(System.currentTimeMillis() < until || this.serverSocket.isClosed()) {
+      Thread.yield();
+    }
   }
   
   public String debugName() {
