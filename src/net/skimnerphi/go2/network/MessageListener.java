@@ -12,5 +12,5 @@ public interface MessageListener {
    * @param inst The receiving account instance
    * @param msg Message received
    */
-  public abstract void messageRecieved(Connection inst, MsgHead msg);
+  public abstract void messageReceived(Connection inst, MsgHead msg);
 }
