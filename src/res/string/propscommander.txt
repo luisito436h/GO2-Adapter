@@ -86,7 +86,7 @@
 2259=Titan
 2268=Eschaton Adventists
 2277=Hand of Lelantos
-2286= Hekatian Witnesses
+2286=Hekatian Witnesses
 2295=Dopplegangers
 2304=Erebus Errants
 2313=Cassius
