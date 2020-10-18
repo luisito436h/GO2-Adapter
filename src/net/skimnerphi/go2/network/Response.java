@@ -31,7 +31,7 @@ public class Response extends Thread {
         MsgHead msg = this.inst.readMsg();
 
         for(MessageListener ml : this.listeners) {
-          ml.messageRecieved(this.inst, msg);
+          ml.messageReceived(this.inst, msg);
         }
       } catch(IOException ex) {
         System.err.println(ex);
